@@ -34,17 +34,6 @@ const OurTeam = () => {
                     })
                 }
             </div>
-
-            <div className="row">
-                <div className="col-md-8">
-                    <form action="http://localhost:3000/addProduct" method="post">
-                        <input type="text" name="name" placeholder="Product Name" id="" /><br />
-                        <input type="text" name="price" placeholder="Product Price" id="" /><br />
-                        <input type="text" name="quantity" placeholder="Product Quantity" id="" /><br />
-                        <input type="submit" value="Submit" />
-                    </form>
-                </div>
-            </div>
         </div>
     );
 };

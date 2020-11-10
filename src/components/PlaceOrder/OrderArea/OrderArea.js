@@ -18,7 +18,7 @@ const OrderArea = () => {
         setCurrentCategory(sidebar)
     }
     return (
-        <div className="w-100" style={{ backgroundColor: '#FFFFFF',marginLeft: '20px', marginRight: '20px' }}>
+        <div className="" style={{ backgroundColor: '#FFFFFF',marginLeft: '20px', marginRight: '20px' }}>
             <div className="row p-2">
                 <div className="col-md-2 col-12 text-center">
                     <Link to="/"><img className="w-75" src={logo} alt="" /></Link>
@@ -48,7 +48,6 @@ const OrderArea = () => {
                             currentCategory === 'order' && <PlaceOrder></PlaceOrder> || currentCategory === 'service' && <ServiceList></ServiceList> || currentCategory === 'review' && <Review></Review> || currentCategory === 'addService' && <AddService></AddService> || currentCategory === 'makeAdmin' && <MakeAdmin></MakeAdmin>
                         }
                     </div>
-
                 </div>
             </div>
         </div>
