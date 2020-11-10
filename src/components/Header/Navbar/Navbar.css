@@ -1,0 +1,10 @@
+.nav-item a{
+    padding: 10px;
+    color: black;
+}
+.nav-item a:hover{
+    text-decoration: none;
+}
+.btn:hover{
+    text-decoration: none;
+}

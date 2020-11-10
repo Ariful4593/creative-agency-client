@@ -1,0 +1,12 @@
+
+@media screen and (min-width: 225px) {
+    .recent-header {
+      font-size: 25px;
+    }
+  }
+  
+@media screen and (min-width: 576px) {
+    .recent-header {
+      font-size: 35px;
+    }
+  }

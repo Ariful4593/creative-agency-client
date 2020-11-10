@@ -1,0 +1,21 @@
+@media screen and (min-width: 225px) {
+    .feedback-header {
+      font-size: 25px;
+    }
+  }
+  @media screen and (min-width: 576px) {
+    .feedback-header {
+      font-size: 35px;
+    }
+  }
+  @media screen and (min-width: 225px) {
+    .feedback-content {
+      margin: 0px;
+    }
+  }
+  @media screen and (min-width: 576px) {
+    .feedback-content {
+      margin-top: 40px;
+    }
+  }
+  

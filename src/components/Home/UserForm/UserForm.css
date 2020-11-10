@@ -1,0 +1,16 @@
+@media screen and (max-width: 575px) {
+    .footer {
+        background: #FBD062;
+        padding: 10px;
+        margin-top: 20px;
+    }
+  }
+
+  @media screen and (min-width: 576px) {
+    .footer {
+        background: #FBD062;
+        padding: 70px;
+        margin-top: 60px;
+    }
+  }
+
