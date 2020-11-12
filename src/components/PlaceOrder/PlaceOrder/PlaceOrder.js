@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 const PlaceOrder = () => {
     const { handleSubmit } = useForm();
     const [inputData, setInputData] = useState({});
-    const [info, setInfo] = useState({});
     const [file, setFile] = useState(null)
     const onSubmit = data => {
 
