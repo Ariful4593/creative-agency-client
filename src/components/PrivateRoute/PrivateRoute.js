@@ -1,27 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import {
-    BrowserRouter as Router,
     Route,
     Redirect,
 } from "react-router-dom";
-import jwt_decode from 'jwt-decode'
-import { UserContext } from '../../App';
+
 const PrivateRoute = ({children, ...rest}) => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    const isLoggeIn = () =>{
-        const token = sessionStorage.getItem('token')
-        if(!token){
-            return false;
-        }
-        const decodedToken = jwt_decode(token);
-        const currentTime = new Date().getTime() / 1000;
-        return decodedToken.exp > currentTime;
-    }
+    const [login, setLogin] = useState(JSON.parse(sessionStorage.getItem('loginUser')));
+    
     return (
         <Route
             {...rest}
             render={({ location }) =>
-            (loggedInUser.email || isLoggeIn()) ? (
+            (login) ? (
                     children
                 ) : (
                         <Redirect

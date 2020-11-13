@@ -7,6 +7,8 @@ import {
   Route,
 } from "react-router-dom";
 import Contact from './components/Contact/Contact/Contact';
+import Account from './components/Dashboard/Account/Account';
+import Dashboard from './components/Dashboard/Dashboard/Dashboard';
 import Home from './components/Home/Home/Home';
 import Login from './components/Login/Login';
 import OurTeam from './components/OurTeam/OurTeam/OurTeam';
@@ -26,10 +28,15 @@ function App() {
           <Route path="/login">
             <Login></Login>
           </Route>
-          <PrivateRoute path="/orderArea">
+          <PrivateRoute path="/orderArea/:id">
             <OrderArea></OrderArea>
           </PrivateRoute>
-          
+          <Route path="/dashboard">
+            <Dashboard></Dashboard>
+          </Route>
+          <Route path="/account">
+            <Account></Account>
+          </Route>
           <Route path="/portfolio">
             <Portfolio></Portfolio>
           </Route>

@@ -6,44 +6,56 @@ import travelguru from '../../../images/travelguru.PNG';
 import volunteer from '../../../images/volunteer.PNG';
 import proariful from '../../../images/proariful.PNG';
 import buddy from '../../../images/Social Buddy.PNG';
-import creative from '../../../images/creative.PNG';
-import carouselSeven from '../../../images/carousel_7.png';
-import carouselEight from '../../../images/carousel_8.png';
+import doctorportal from '../../../images/doctor.PNG';
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2 },
     { width: 768, itemsToShow: 3 },
     { width: 1200, itemsToShow: 4 },
 ];
+const itemData = [
+    { id: 1, img: redonion, webLink: 'http://red-onion-foodss.firebaseapp.com/', },
+    { id: 2, img: doctorportal, webLink: 'https://doctor-portalss.firebaseapp.com/', },
+    { id: 3, img: travelguru, webLink: 'https://travel-guru-web.firebaseapp.com/', },
+    { id: 4, img: volunteer, webLink: 'https://volunteer-networkss.firebaseapp.com/', },
+    { id: 5, img: proariful, webLink: 'https://pro-ariful.firebaseapp.com/', },
+    { id: 6, img: buddy, webLink: 'https://social-buddy-app-react.netlify.app/', },
+]
 const Slider = () => {
     return (
         <div>
             <div className="App">
                 <Carousel breakPoints={breakPoints}>
-                    <Item>
-                        <img className="w-100" src={redonion} alt="" />
-                    </Item>
-                    <Item>
+                    {
+                        itemData.map(item => <Item key={item.id}>
+                            <a href={item.webLink} target="_blank">
+                                <img className="w-100" src={item.img} alt="" />
+                            </a>
+
+                        </Item>)
+                    }
+
+                    {/* <Item>
                         <img className="w-100" src={travelguru} alt="" />
                     </Item>
                     <Item>
                         <img className="w-100" src={volunteer} alt="" />
                     </Item>
                     <Item>
-                    <img className="w-100" src={proariful} alt="" />
+                        <img className="w-100" src={proariful} alt="" />
                     </Item>
                     <Item>
-                    <img className="w-100" src={buddy} alt="" />
+                        <img className="w-100" src={buddy} alt="" />
                     </Item>
                     <Item>
-                    <img className="w-100" src={creative} alt="" />
+                        <img className="w-100" src={creative} alt="" />
                     </Item>
                     <Item>
-                    <img className="w-100" src={carouselSeven} alt="" />
+                        <img className="w-100" src={doctorportal} alt="" />
                     </Item>
                     <Item>
-                    <img className="w-100" src={carouselEight} alt="" />
-                    </Item>
+                        <img className="w-100" src={carouselEight} alt="" />
+                    </Item> */}
                 </Carousel>
             </div>
         </div>

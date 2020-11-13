@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AdminServiceDetails.css'
 const AdminServiceDetails = ({ service }) => {
-    const [pending, setPending] = useState(service.status.toLowerCase() == 'pending');
+    const [pending, setPending] = useState(service.status.toLowerCase() === 'pending');
     const handleChange = (e) => {
         setPending(!pending)
         fetch('https://frozen-retreat-55750.herokuapp.com/update', {

@@ -1,10 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import { useForm } from "react-hook-form";
-const PlaceOrder = () => {
+const PlaceOrder = ({ currentMenu }) => {
     const { handleSubmit } = useForm();
     const [inputData, setInputData] = useState({});
-    const [file, setFile] = useState(null)
+    const [file, setFile] = useState(null);
+    const loginUser = JSON.parse(sessionStorage.getItem('loginUser'))
     const onSubmit = data => {
 
         const formData = new FormData()
@@ -18,7 +19,7 @@ const PlaceOrder = () => {
 
         fetch('https://frozen-retreat-55750.herokuapp.com/order', {
             method: 'POST',
-            
+
             body: formData
         })
             .then(res => res.json())
@@ -61,28 +62,40 @@ const PlaceOrder = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="form-group">
-                <input type="name" className="form-control" name="name" placeholder="Yourname" onBlur={handleChange} />
-            </div><br />
-            <div className="form-group">
-                <input type="email" className="form-control" name="email" placeholder="Your email address" onBlur={handleChange} />
-            </div><br />
-            <div className="form-group">
-                <input type="text" className="form-control" name="graphicDegin" placeholder="Graphic Design" onBlur={handleChange} />
-            </div><br />
-            <textarea className="form-control" name="textArea" rows="6" onBlur={handleChange} ></textarea>
-            <br />
-            <div className="row">
-                <div className="col-md-6">
-                    <input type="text" className="form-control" name="price" placeholder="Price" onBlur={handleChange} />
-                </div>
-                <div className="col-md-6">
-                    <input type="file" name="" placeholder="Upload Image" id="" onBlur={handleFileChange} />
-                </div>
-            </div><br />
-            <input type="submit" value="Send" className="btn text-white" style={{ backgroundColor: '#111430' }} />
-        </form>
+        <>
+            {
+                
+                currentMenu.map(order => {
+                    return(
+                        <form onSubmit={handleSubmit(onSubmit)} key={order._id}>
+                    <div className="form-group">
+
+                        <input type="name" className="form-control" name="name" placeholder="Yourname" defaultValue={loginUser.name} onBlur={handleChange} />
+                        
+                    </div><br />
+                    <div className="form-group">
+                        <input type="email" className="form-control" name="email" placeholder="Your email address" defaultValue={loginUser.email} onBlur={handleChange} />
+                    </div><br />
+                    <div className="form-group">
+                        <input type="text" className="form-control" name="graphicDegin" placeholder="Graphic Design" defaultValue={order.title} onBlur={handleChange} />
+                    </div><br />
+                    <textarea className="form-control" defaultValue='Describe about your project...' name="textArea" rows="6" onBlur={handleChange} ></textarea>
+                    <br />
+                    <div className="row">
+                        <div className="col-md-6">
+                            <input type="text" className="form-control" name="price" placeholder="Price" onBlur={handleChange} />
+                        </div>
+                        <div className="col-md-6">
+                            <input type="file" name="" placeholder="Upload Image" id="" onBlur={handleFileChange} />
+                        </div>
+                    </div><br />
+                    <input type="submit" value="Send" className="btn text-white" style={{ backgroundColor: '#111430' }} />
+                </form>
+                    )
+                })
+            }
+
+        </>
     );
 };
 

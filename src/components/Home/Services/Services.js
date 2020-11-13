@@ -31,7 +31,7 @@ const Services = () => {
                         return (
                             <div className="card card-content border-0 col-12 col-sm-6 col-md-4 col-xl-4 " key={service._id}>
                                 <div className="card-body text-center">
-                                    <Link to="orderArea">
+                                    <Link to={`orderArea/${service._id}`}>
                                         <img className="card-img-top" style={{ width: '100px' }} src={`data:image/png;base64,${service.image.img}`} alt="Card cap" />
                                         <h5 className="card-title font-weight-bold mt-4 text-secondary">{service.title}</h5>
                                         <p className="card-text text-secondary">{service.description}</p>

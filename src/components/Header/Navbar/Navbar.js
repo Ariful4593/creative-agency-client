@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../.../../../../images/logos/logo.png'
@@ -9,6 +8,9 @@ const Navbar = () => {
     const [login, setLogin] = useState(JSON.parse(sessionStorage.getItem('loginUser')));
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
+    const handleSignOut = () => {
+        setLogin(sessionStorage.setItem('loginUser', false))
+    }
     return (
 
         <nav className="navbar navbar-expand-lg navbar-light">
@@ -40,25 +42,24 @@ const Navbar = () => {
                         </Link>
                     </li>
                     {
-                        loggedInUser.email || login !== null ? <div className="p-0 nav-item btn ">
+                         login  ?
+                            <div className="p-0 nav-item btn ">
+                                <div className="dropdown show">
+                                    <a className=" btn-success dropdown-toggle" href="#" style={{borderRadius: '7px'}} role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {loggedInUser.name || login.name}
+                                    </a>
+                                    <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <Link className="dropdown-item" to="dashboard">Dashboard</Link>
+                                        <Link className="dropdown-item" to="/">Order</Link>
+                                        <Link className="dropdown-item" to="contact">Support</Link>
+                                        <Link className="dropdown-item" to="/" onClick={handleSignOut}>Sign out</Link>
 
+                                    </div>
 
-                            <div className="dropdown show">
-                                <a className="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {loggedInUser.name || login.name}
-                                </a>
-
-                                <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                    <Link className="dropdown-item" to="orderArea">Dashboard</Link>
-                                    <Link className="dropdown-item" to="orderArea">Order</Link>
-                                    <Link className="dropdown-item" to="team">Support</Link>
-                                    <Link className="dropdown-item" to="">Sign out</Link>
-                                    
                                 </div>
-                            </div>
 
 
-                        </div> : <div className="nav-item btn" style={{ backgroundColor: '#111430' }}>
+                            </div> : <div className="nav-item btn" style={{ backgroundColor: '#111430' }}>
                                 <Link to="/login" className="text-white">
                                     Login
                             </Link>

@@ -37,7 +37,7 @@ const ServiceList = () => {
             .then(data => {
                 sessionStorage.setItem('OrderData', JSON.stringify(data))
             })
-    }, [])
+    }, [loginUser.email])
     const orderData = JSON.parse(sessionStorage.getItem('OrderData'))
     return (
         <section>

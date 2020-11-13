@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import PlaceOrder from '../PlaceOrder/PlaceOrder';
 import Review from '../Review/Review';
@@ -7,14 +7,33 @@ import logo from '../../../images/logos/logo.png'
 import Sidebar from '../Sidebar/Sidebar';
 import AddService from '../AddService/AddService';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import './OrderArea.css'
 const OrderArea = () => {
     const loginUser = JSON.parse(sessionStorage.getItem('loginUser'))
     const [currentCategory, setCurrentCategory] = useState('')
+    const [currentMenu, setCurrentMenu] = useState([])
+    
+    const serviceId = new useParams();
+    const [orderData, setOrderData] = useState([])
+    useEffect(() => {
+        fetch('https://frozen-retreat-55750.herokuapp.com/getServiceData')
+            .then(res => res.json())
+            .then(data => setOrderData(data))
+    }, []);
+    useEffect(() => {
+        setCurrentCategory('service')
+    }, [])
     const handleSidebar = (sidebar) => {
         setCurrentCategory(sidebar)
     }
+    useEffect(() => {
+        if(currentCategory !== ''){
+            const current = orderData.filter(order => order._id === serviceId.id);
+            setCurrentMenu(current);
+
+        }
+    }, [currentCategory])
     return (
         <div className="" style={{ backgroundColor: '#FFFFFF',marginLeft: '20px', marginRight: '20px' }}>
             <div className="row p-2">
@@ -43,7 +62,7 @@ const OrderArea = () => {
                 <div className="col-md-8 col-lg-9  col-xl-10" style={{ backgroundColor: '#F4F7FC' }}>
                     <div className={`${currentCategory === 'order' || currentCategory === 'review' ? 'col-md-12 col-lg-8 align' : 'w-100'} `}>
                         {
-                            currentCategory === 'order' && <PlaceOrder></PlaceOrder> || currentCategory === 'service' && <ServiceList></ServiceList> || currentCategory === 'review' && <Review></Review> || currentCategory === 'addService' && <AddService></AddService> || currentCategory === 'makeAdmin' && <MakeAdmin></MakeAdmin>
+                            currentCategory === 'order' && <PlaceOrder currentMenu={currentMenu}></PlaceOrder> || currentCategory === 'service' && <ServiceList></ServiceList> || currentCategory === 'review' && <Review></Review> || currentCategory === 'addService' && <AddService></AddService> || currentCategory === 'makeAdmin' && <MakeAdmin></MakeAdmin>
                         }
                     </div>
                 </div>

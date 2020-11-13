@@ -14,7 +14,7 @@ const HeaderMain = () => {
                     <div className="">
                         <h1 className="main-header">Let's Grow Your <br /> Brand To The <br /> Next Level</h1>
                         <p style={{ fontWeight: 600 }}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quod sint, quas iure eos voluptatibus neque!</p>
-                        <Link to="orderArea">
+                        <Link to="contact">
                             <button className="btn text-white" style={{ backgroundColor: '#111430' }}>
                                 Hire us
                         </button>
