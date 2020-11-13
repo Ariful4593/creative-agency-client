@@ -1,8 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
-import webLogo from '../../../images/icons/service1.png';
 import AdminServiceList from '../AdminServiceList/AdminServiceList';
-import { UserContext } from '../../../App';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
@@ -16,25 +14,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const ServiceList = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext)
+    const loginUser = JSON.parse(sessionStorage.getItem('loginUser'))
     const [isAdmin, setIsAdmin] = useState(false);
     const classes = useStyles();
     useEffect(() => {
         fetch('https://frozen-retreat-55750.herokuapp.com/isAdmin', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ email: loggedInUser.email })
+            body: JSON.stringify({ email: loginUser.email })
         })
             .then(res => res.json())
             .then(data => setIsAdmin(data))
-    }, [loggedInUser.email])
-    const [serviceData, setServiceData] = useState({});
-    const [singleUser, setSingleUser] = useState([])
+    }, [loginUser.email])
+    
     useEffect(() => {
         fetch('https://frozen-retreat-55750.herokuapp.com/getOrderViaEmail', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ email: loggedInUser.email })
+            body: JSON.stringify({ email: loginUser.email })
         })
             .then(res => res.json())
             .then(data => {

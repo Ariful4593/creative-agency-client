@@ -29,9 +29,7 @@ function App() {
           <PrivateRoute path="/orderArea">
             <OrderArea></OrderArea>
           </PrivateRoute>
-          {/* <Route path="/orderArea">
-            <OrderArea></OrderArea>
-          </Route> */}
+          
           <Route path="/portfolio">
             <Portfolio></Portfolio>
           </Route>

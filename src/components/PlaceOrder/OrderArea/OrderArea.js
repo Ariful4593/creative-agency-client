@@ -8,11 +8,9 @@ import Sidebar from '../Sidebar/Sidebar';
 import AddService from '../AddService/AddService';
 import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { UserContext } from '../../../App';
 import './OrderArea.css'
 const OrderArea = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext)
+    const loginUser = JSON.parse(sessionStorage.getItem('loginUser'))
     const [currentCategory, setCurrentCategory] = useState('')
     const handleSidebar = (sidebar) => {
         setCurrentCategory(sidebar)
@@ -35,7 +33,7 @@ const OrderArea = () => {
                     }
                 </div>
                 <div className="col-md-6 col-6 d-flex justify-content-end ">
-                    <h3 className="type">{loggedInUser.name}</h3>
+                    <h3 className="type">{loginUser.name}</h3>
                 </div>
             </div>
             <div className="row">

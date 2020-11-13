@@ -18,6 +18,7 @@ const PlaceOrder = () => {
 
         fetch('https://frozen-retreat-55750.herokuapp.com/order', {
             method: 'POST',
+            
             body: formData
         })
             .then(res => res.json())

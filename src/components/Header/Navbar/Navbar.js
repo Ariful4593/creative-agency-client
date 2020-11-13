@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../.../../../../images/logos/logo.png'
 import { UserContext } from '../../../App';
 import './Navbar.css'
 const Navbar = () => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext)
+    const [login, setLogin] = useState(JSON.parse(sessionStorage.getItem('loginUser')));
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
     return (
 
         <nav className="navbar navbar-expand-lg navbar-light">
@@ -37,11 +40,24 @@ const Navbar = () => {
                         </Link>
                     </li>
                     {
-                        loggedInUser.email ? <div className="nav-item btn text-white" style={{ backgroundColor: '#111430' }}>
+                        loggedInUser.email || login !== null ? <div className="p-0 nav-item btn ">
 
-                            <Link to="/" className="text-white">
-                                {loggedInUser.name}
-                            </Link>
+
+                            <div className="dropdown show">
+                                <a className="btn btn-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {loggedInUser.name || login.name}
+                                </a>
+
+                                <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <Link className="dropdown-item" to="orderArea">Dashboard</Link>
+                                    <Link className="dropdown-item" to="orderArea">Order</Link>
+                                    <Link className="dropdown-item" to="team">Support</Link>
+                                    <Link className="dropdown-item" to="">Sign out</Link>
+                                    
+                                </div>
+                            </div>
+
+
                         </div> : <div className="nav-item btn" style={{ backgroundColor: '#111430' }}>
                                 <Link to="/login" className="text-white">
                                     Login

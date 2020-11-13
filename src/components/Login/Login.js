@@ -25,35 +25,37 @@ const Login = () => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext)
     let history = useHistory();
     let location = useLocation();
-  
+
     let { from } = location.state || { from: { pathname: "/" } };
     const handleGoogleSignIn = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
             .then(function (result) {
-                const newLoggedInUser = {...loggedInUser};
-                const {displayName, email,photoURL} = result.user;
+                const newLoggedInUser = { ...loggedInUser };
+                const { displayName, email, photoURL } = result.user;
                 newLoggedInUser.name = displayName;
                 newLoggedInUser.email = email;
                 newLoggedInUser.photo = photoURL;
+                sessionStorage.setItem('loginUser', JSON.stringify(newLoggedInUser))
                 setLoggedInUser(newLoggedInUser)
                 storeAuthToken();
-                               
+
             }).catch(function (error) {
                 const errorMessage = error.message;
                 console.log(errorMessage)
             });
-            
+
     }
-  const storeAuthToken = () =>{
-    firebase.auth().currentUser.getIdToken(true)
-    .then(function(idToken) {
-        sessionStorage.setItem('token', idToken)
-        history.replace(from)
-      }).catch(function(error) {
-        // Handle error
-      });
-  }
+
+    const storeAuthToken = () => {
+        firebase.auth().currentUser.getIdToken(true)
+            .then(function (idToken) {
+                sessionStorage.setItem('token', idToken)
+                history.replace(from)
+            }).catch(function (error) {
+                // Handle error
+            });
+    }
     return (
         <div className="container text-center mt-4 w-100">
             <img style={{ width: '160px' }} src={logo} alt="" />
@@ -71,7 +73,7 @@ const Login = () => {
 
                         </div>
                     </div>
-                    <p>Don't have account? <mark style={{ cursor: 'pointer', background: 'none'}}>Create an Account</mark></p>
+                    <p>Don't have account? <mark style={{ cursor: 'pointer', background: 'none' }}>Create an Account</mark></p>
 
                 </div>
             </div>
