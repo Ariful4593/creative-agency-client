@@ -15,12 +15,15 @@ import OurTeam from './components/OurTeam/OurTeam/OurTeam';
 import OrderArea from './components/PlaceOrder/OrderArea/OrderArea';
 import Portfolio from './components/Portfolio/Portfolio/Portfolio';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import ScrollToTop from "react-scroll-to-top";
+
 export const UserContext = createContext();
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({})
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
       <Router>
+      <ScrollToTop smooth color="#6f00ff" />
         <Switch>
           <Route exact path="/">
             <Home></Home>
