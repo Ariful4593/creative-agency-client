@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './RightSide.css'
 const RightSide = () => {
-    const loginProfile = JSON.parse(sessionStorage.getItem('loginUser'));
+    const loginProfile = JSON.parse(sessionStorage.getItem('googleUser'));
     return (
         <div className="card col-12 border-0">
             <div className="card-body text-center">

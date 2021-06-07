@@ -10,7 +10,7 @@ import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import { Link, useParams } from 'react-router-dom';
 import './OrderArea.css'
 const OrderArea = () => {
-    const loginUser = JSON.parse(sessionStorage.getItem('loginUser'))
+    const loginUser = JSON.parse(sessionStorage.getItem('googleUser'))
     const [currentCategory, setCurrentCategory] = useState('')
     const [currentMenu, setCurrentMenu] = useState([])
     
@@ -42,12 +42,19 @@ const OrderArea = () => {
                 </div>
                 <div className="col-md-4 col-6">
                     {
+                        // eslint-disable-next-line no-mixed-operators
                         currentCategory === 'order' && <h3 className="type">Order</h3> || currentCategory === 'service' && <h3 className="type">Service</h3>
+                         // eslint-disable-next-line no-mixed-operators
                          ||
+                        // eslint-disable-next-line no-mixed-operators
                         currentCategory === 'review' && <h3 className="type">Review</h3>
+                         // eslint-disable-next-line no-mixed-operators
                          ||
+                        // eslint-disable-next-line no-mixed-operators
                         currentCategory === 'addService' && <h3 className="type">Add Service</h3>
+                         // eslint-disable-next-line no-mixed-operators
                          ||
+                        // eslint-disable-next-line no-mixed-operators
                         currentCategory === 'makeAdmin' && <h3 className="type">Make Admin</h3>
                     }
                 </div>
@@ -62,6 +69,7 @@ const OrderArea = () => {
                 <div className="col-md-8 col-lg-9  col-xl-10" style={{ backgroundColor: '#F4F7FC' }}>
                     <div className={`${currentCategory === 'order' || currentCategory === 'review' ? 'col-md-12 col-lg-8 align' : 'w-100'} `}>
                         {
+                            // eslint-disable-next-line no-mixed-operators
                             currentCategory === 'order' && <PlaceOrder currentMenu={currentMenu}></PlaceOrder> || currentCategory === 'service' && <ServiceList></ServiceList> || currentCategory === 'review' && <Review></Review> || currentCategory === 'addService' && <AddService></AddService> || currentCategory === 'makeAdmin' && <MakeAdmin></MakeAdmin>
                         }
                     </div>

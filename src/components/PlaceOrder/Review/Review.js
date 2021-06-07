@@ -5,7 +5,7 @@ import { UserContext } from '../../../App'
 const Review = () => {
     const { handleSubmit } = useForm();
     const [inputData, setInputData] = useState({});
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext)
+    const [loggedInUser] = useContext(UserContext)
 
     const handleChange = (e) => {
         if (e.target.name === 'name') {

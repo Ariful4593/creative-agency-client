@@ -8,3 +8,9 @@
 .btn:hover{
     text-decoration: none;
 }
+.navbar-expand-lg{
+    padding: 20px !important;
+}
+.login-btn{
+    font-weight: bold;
+}

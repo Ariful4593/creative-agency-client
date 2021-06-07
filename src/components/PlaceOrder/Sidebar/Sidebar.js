@@ -6,7 +6,7 @@ import { UserContext } from '../../../App'
 import { useEffect } from 'react';
 
 const Sidebar = ({ handleSidebar, currentCategory }) => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [loggedInUser] = useContext(UserContext);
     const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
         fetch('https://frozen-retreat-55750.herokuapp.com/isAdmin', {

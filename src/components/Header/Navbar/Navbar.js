@@ -5,11 +5,11 @@ import logo from '../.../../../../images/logos/logo.png'
 import { UserContext } from '../../../App';
 import './Navbar.css'
 const Navbar = () => {
-    const [login, setLogin] = useState(JSON.parse(sessionStorage.getItem('loginUser')));
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    const [login, setLogin] = useState(JSON.parse(sessionStorage.getItem('googleUser')));
+    const [loggedInUser] = useContext(UserContext);
 
     const handleSignOut = () => {
-        setLogin(sessionStorage.setItem('loginUser', false))
+        setLogin(sessionStorage.setItem('googleUser', false))
     }
     const linkItem = [
         { id: 1, type: '/', title: 'Home' },
@@ -43,7 +43,7 @@ const Navbar = () => {
                         login ?
                             <div className="p-0 nav-item btn ">
                                 <div className="dropdown show">
-                                    <a className=" btn-success dropdown-toggle" href="#" style={{ borderRadius: '7px' }} role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a className="dropdown-toggle login-btn" href="https://creative-agencys.firebaseapp.com/" style={{ borderRadius: '7px' }} role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         {loggedInUser.name || login.name}
                                     </a>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">

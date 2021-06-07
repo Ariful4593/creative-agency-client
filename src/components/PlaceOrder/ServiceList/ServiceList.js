@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const ServiceList = () => {
-    const loginUser = JSON.parse(sessionStorage.getItem('loginUser'))
+    const loginUser = JSON.parse(sessionStorage.getItem('googleUser'))
     const [isAdmin, setIsAdmin] = useState(false);
     const classes = useStyles();
     useEffect(() => {
@@ -52,7 +52,7 @@ const ServiceList = () => {
                                 </div> :
                                 orderData.map(userData => {
                                     return (
-                                        <div className="card col-12 col-sm-6 col-md-12 col-lg-6 col-xl-4 border-0 mt-4" key={userData._id}>
+                                        <div className="card col-12 col-sm-6 col-md-12 col-lg-6 col-xl-4 border-0 p-4" key={userData._id}>
                                             <div className="card-body border">
                                                 <div className="row">
                                                     <div className="col-md-6">

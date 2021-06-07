@@ -5,8 +5,8 @@ import {
 } from "react-router-dom";
 
 const PrivateRoute = ({children, ...rest}) => {
-    const [login, setLogin] = useState(JSON.parse(sessionStorage.getItem('loginUser')));
-    
+    const [login] = useState(JSON.parse(sessionStorage.getItem('googleUser')));
+    console.log(login)
     return (
         <Route
             {...rest}

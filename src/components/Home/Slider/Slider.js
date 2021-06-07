@@ -28,7 +28,7 @@ const Slider = () => {
                 <Carousel breakPoints={breakPoints}>
                     {
                         itemData.map(item => <Item key={item.id}>
-                            <a href={item.webLink} target="_blank">
+                            <a href={item.webLink} rel="noreferrer">
                                 <img className="w-100" src={item.img} alt="" />
                             </a>
 

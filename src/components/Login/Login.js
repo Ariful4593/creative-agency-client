@@ -3,10 +3,10 @@ import logo from '../../images/logos/logo.png';
 import googleIcon from '../../images/logos/google-logo.png';
 import * as firebase from "firebase/app";
 import "firebase/auth";
-import { useContext } from 'react';
-import { UserContext } from '../../App';
-import { useHistory, useLocation } from 'react-router-dom';
-
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useState } from 'react';
+import facebookIcon from '../../images/icons/facebook-social-media-icon.png';
+import './Login.css';
 const Login = () => {
     const firebaseConfig = {
         apiKey: "AIzaSyCn5I-A7nbP1Ib3qv9XWIdZcO_dKiEZAgk",
@@ -21,60 +21,215 @@ const Login = () => {
     if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
     }
+    const [newUser, setNewUser] = useState(false);
+    const [user, setUser] = useState({
+        isSignedIn: false,
+        first: '',
+        last: '',
+        email: '',
+        password: '',
+        error: '',
+        success: false,
+        photo: '',
+    })
 
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext)
-    let history = useHistory();
-    let location = useLocation();
+    const history = useHistory()
+    const location = useLocation()
+    const { from } = location.state || { from: { pathname: '/' }, }
 
-    let { from } = location.state || { from: { pathname: "/" } };
-    const handleGoogleSignIn = () => {
+
+    const fbLogIn = () => {
+
+    }
+
+    const handleBlur = (e) => {
+        let isFieldValid
+        if (e.target.name === 'first') {
+            isFieldValid = e.target.value
+        }
+        if (e.target.name === 'last') {
+            isFieldValid = e.target.value
+        }
+        if (e.target.name === 'email') {
+            isFieldValid = e.target.value
+        }
+        if (e.target.name === 'password') {
+            isFieldValid = e.target.value
+        }
+        if (isFieldValid) {
+            const newUserInfo = { ...user }
+            newUserInfo[e.target.name] = e.target.value
+            setUser(newUserInfo)
+        }
+    }
+    const handleSubmit = (e) => {
+        if (newUser && user.first && user.last && user.email && user.password) {
+            firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+                .then((res) => {
+                    const newUser = { ...user };
+                    newUser.success = true;
+                    newUser.error = '';
+                    setUser(newUser)
+                    console.log(newUser)
+                })
+                .catch((error) => {
+                    var errorMessage = error.message;
+                    const newUser = { ...user }
+                    newUser.error = errorMessage;
+                    setUser(newUser)
+                });
+        }
+
+        if (!newUser && user.email && user.password) {
+            firebase.auth().signInWithEmailAndPassword(user.email, user.password)
+                .then((res) => {
+                    const newUser = {...user};
+                    newUser.success = true;
+                    newUser.name = res.user.displayName;
+                    setUser(newUser)
+                    sessionStorage.setItem('userCreate', JSON.stringify(user))
+                    history.replace(from)
+                })
+                .catch((error) => {
+                    var errorMessage = error.message;
+                    console.log(errorMessage);
+                });
+        }
+
+        e.preventDefault()
+
+    }
+    const googleSignIn = () => {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
             .then(function (result) {
-                const newLoggedInUser = { ...loggedInUser };
-                const { displayName, email, photoURL } = result.user;
-                newLoggedInUser.name = displayName;
-                newLoggedInUser.email = email;
-                newLoggedInUser.photo = photoURL;
-                sessionStorage.setItem('loginUser', JSON.stringify(newLoggedInUser))
-                setLoggedInUser(newLoggedInUser)
-                storeAuthToken();
-
-            }).catch(function (error) {
-                const errorMessage = error.message;
-                console.log(errorMessage)
-            });
-
-    }
-
-    const storeAuthToken = () => {
-        firebase.auth().currentUser.getIdToken(true)
-            .then(function (idToken) {
-                sessionStorage.setItem('token', idToken)
+                var loginUser = result.user;
+                const newUser = { ...user };
+                newUser.name = loginUser.displayName;
+                newUser.email = loginUser.email
+                newUser.photo = loginUser.photoURL;
+                setUser(newUser);
+                sessionStorage.setItem('googleUser', JSON.stringify(newUser))
                 history.replace(from)
+
             }).catch(function (error) {
-                // Handle error
+                var errorMessage = error.message;
+                console.log(errorMessage);
             });
-    }
+    } 
     return (
         <div className="container text-center mt-4 w-100">
             <img style={{ width: '160px' }} src={logo} alt="" />
-            <div className="row mt-2 p-sm-0" >
-                <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6  border text-center " style={{ boxShadow: '0px 0px 3px 0px', margin: '0 auto', height: '390px' }}>
-                    <h2 style={{ marginTop: '125px' }}>Login</h2>
-                    <div className="container" style={{ width: '100%', paddingRight: 0 }}>
-                        <div className="row d-flex justify-content-center" style={{ borderRadius: '20px', border: '1px solid', cursor: 'pointer', width: '100%' }} onClick={handleGoogleSignIn} >
-                            <div className="col d-none d-sm-block ">
-                                <img style={{ width: '50px' }} src={googleIcon} alt="" />
-                            </div>
-                            <div className="col-9 d-flex align-items-center">
-                                <h5 style={{ marginTop: '5px' }} >Continue with Google</h5>
-                            </div>
+            <div className="mb-5 mt-2  d-flex justify-content-center">
+                <div className='col-md-8 col-lg-6 col-xl-5'>
+                    <form id="form" onSubmit={handleSubmit}>
+                        <div className='form-field w-100 p-4 m-0'>
+                            <h4 className='text-center mb-5 ml-3'>
+                                {newUser ? 'Created an account' : 'Login'}
+                            </h4>
 
+                            {newUser && (
+                                <input
+                                    className='mb-2 w-100'
+                                    onBlur={handleBlur}
+                                    type='text'
+                                    name='first'
+                                    placeholder='First Name'
+                                    required
+                                />
+                            )}
+
+
+                            {newUser && (
+                                <input
+                                    className='mb-2 w-100'
+                                    onBlur={handleBlur}
+                                    type='text'
+                                    name='last'
+                                    placeholder='Last Name'
+                                    required
+                                />
+                            )}
+
+                            <input
+                                className='mb-2 w-100'
+                                onBlur={handleBlur}
+                                type='email'
+                                name='email'
+                                placeholder='Username or Email'
+                                required
+                            />
+
+                            <input
+                                className='mb-2 w-100'
+                                onBlur={handleBlur}
+                                type='password'
+                                name='password'
+                                placeholder='Password'
+                                required
+                            />
+
+                            <p className='text-left mb-2 px-3'>
+                                <input type='checkbox' name='checkbox' />
+                                <span className='ml-3'>Remember Me</span>
+                                <span className='float-right'>
+                                    <Link to="/">Forgot Password ?</Link>
+                                </span>
+                            </p>
+                            <input
+                                className='mt-3 w-100'
+                                type='submit'
+                                value={newUser ? 'Create an account' : 'Login'}
+                            />
+                            <>
+                                {!newUser && (
+                                    <div className='login-qstn'>
+                                        <span>Don't have an account?</span>
+                                        <span className='pl-1'>
+                                            <span style={{cursor: 'pointer', color: 'orange', fontSize: '16px'}} onClick={() => setNewUser(!newUser)}>
+                                            Create an account
+                                            </span>
+                                        </span>
+                                    </div>
+                                )}
+                            </>
+                            <>
+                                {newUser && (
+                                    <div>
+                                        <span>Already have an account?</span>
+                                        <span className='pl-1'>
+                                            <span style={{color: 'orange', cursor: 'pointer', fontSize: '20px'}} onClick={() => setNewUser(!newUser)}>
+                                                Login
+                                            </span>
+                                        </span>
+                                    </div>
+                                )}
+                            </>
                         </div>
+                    </form>
+                    <div className="mt-4 d-none d-sm-block">
+                        <p className='divider'></p>Or<p className='divider'></p>
                     </div>
-                    <p>Don't have account? <mark style={{ cursor: 'pointer', background: 'none' }}>Create an Account</mark></p>
-
+                    <div className='mb-2 mt-3 sign-btn col-12 col-sm-9' onClick={googleSignIn}>
+                        <img
+                            className='media-icon'
+                            src={googleIcon}
+                            
+                            alt='google icon'
+                        />
+                    Continue with Google
+                    </div>
+                    <div className='sign-btn col-12 col-sm-9'  onClick={fbLogIn}>
+                        <img className='media-icon' src={facebookIcon} alt='facebook icon' />
+                    Continue with Facebook
+                    </div>
+                    <p style={{ color: 'red' }}>{user.error}</p>
+                    {user.success && (
+                        <p style={{ color: 'green' }}>
+                            you have successfully{' '}
+                            {newUser ? 'created a new account' : 'logged in'}
+                        </p>
+                    )}
                 </div>
             </div>
         </div>

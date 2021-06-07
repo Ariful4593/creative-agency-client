@@ -9,11 +9,10 @@ const LeftSide = ({ orderData }) => {
                         <div className="card col-12 col-sm-6 col-md-6 col-lg-8 col-xl-4 border-0 mt-4" key={item._id}>
                             <div className="card-body border">
                                 <div className="row">
-                                    <div className="col-md-6">
+                                    <div className="col-md-12">
                                         <img className="card-img-top w-100" src={`data:image/png;base64,${item.image.img}`} alt="Card cap" />
                                     </div>
                                     <div className="col-md-6 text-right button">
-
                                         <div className="btn btn-danger">
                                             {item.status}
                                         </div>

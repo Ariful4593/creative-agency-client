@@ -4,7 +4,7 @@ import LeftSide from '../LeftSide/LeftSide';
 import RightSide from '../RightSide/RightSide';
 
 const Dashboard = () => {
-    const loginUser = JSON.parse(sessionStorage.getItem('loginUser'));
+    const loginUser = JSON.parse(sessionStorage.getItem('googleUser'));
     useEffect(() => {
         fetch('https://frozen-retreat-55750.herokuapp.com/getOrderViaEmail', {
             method: 'POST',
@@ -20,15 +20,16 @@ const Dashboard = () => {
     return (
         <div>
             <Navbar></Navbar>
-            <div className="row w-100">
-                <div className="col-md-8">
-                    <LeftSide orderData={orderData}></LeftSide>
-                </div>
-                <div className="col-md-4">
-                    <RightSide></RightSide>
+            <div className="container">
+                <div className="row w-100">
+                    <div className="col-md-8">
+                        <LeftSide orderData={orderData}></LeftSide>
+                    </div>
+                    <div className="col-md-4">
+                        <RightSide></RightSide>
+                    </div>
                 </div>
             </div>
-
         </div>
     );
 };

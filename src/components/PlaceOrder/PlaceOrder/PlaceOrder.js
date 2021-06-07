@@ -5,7 +5,7 @@ const PlaceOrder = ({ currentMenu }) => {
     const { handleSubmit } = useForm();
     const [inputData, setInputData] = useState({});
     const [file, setFile] = useState(null);
-    const loginUser = JSON.parse(sessionStorage.getItem('loginUser'))
+    const loginUser = JSON.parse(sessionStorage.getItem('googleUser'))
     const onSubmit = data => {
 
         const formData = new FormData()
@@ -19,7 +19,6 @@ const PlaceOrder = ({ currentMenu }) => {
 
         fetch('https://frozen-retreat-55750.herokuapp.com/order', {
             method: 'POST',
-
             body: formData
         })
             .then(res => res.json())

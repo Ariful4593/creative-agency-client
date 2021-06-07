@@ -4,3 +4,6 @@
       margin-top: 15px;
     }
   }
+  .card{
+    background: none !important;
+  }
