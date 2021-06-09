@@ -5,13 +5,13 @@ import {
 } from "react-router-dom";
 
 const PrivateRoute = ({children, ...rest}) => {
-    const [login] = useState(JSON.parse(sessionStorage.getItem('googleUser')));
-    console.log(login)
+    const [googleUser] = useState(JSON.parse(sessionStorage.getItem('googleUser')));
+    const [manualLoginUser] = useState(JSON.parse(localStorage.getItem('createNewUser')));
     return (
         <Route
             {...rest}
             render={({ location }) =>
-            (login) ? (
+            (googleUser || manualLoginUser) ? (
                     children
                 ) : (
                         <Redirect

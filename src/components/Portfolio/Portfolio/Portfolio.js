@@ -3,11 +3,8 @@ import Navbar from '../../Header/Navbar/Navbar';
 import img from '../../../images/portfolio.png';
 import data from './PortfolioData';
 import Fade from 'react-reveal/Fade';
-import { useRouteMatch } from 'react-router-dom';
 
 const Portfolio = () => {
-    const match = useRouteMatch();
-    console.log(match)
     return (
         <div className="container mw-100">
             <Navbar></Navbar>

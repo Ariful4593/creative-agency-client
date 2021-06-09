@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import logo from '../../images/logos/logo.png';
 import googleIcon from '../../images/logos/google-logo.png';
 import * as firebase from "firebase/app";
@@ -22,6 +22,7 @@ const Login = () => {
         firebase.initializeApp(firebaseConfig);
     }
     const [newUser, setNewUser] = useState(false);
+    const [manualUser, setManualUser] = useState([])
     const [user, setUser] = useState({
         isSignedIn: false,
         first: '',
@@ -41,6 +42,11 @@ const Login = () => {
     const fbLogIn = () => {
 
     }
+    useEffect(() => {
+        fetch('https://frozen-retreat-55750.herokuapp.com/userLoginData')
+            .then(res => res.json())
+            .then(data => setManualUser(data))
+    }, [])
 
     const handleBlur = (e) => {
         let isFieldValid
@@ -62,41 +68,32 @@ const Login = () => {
             setUser(newUserInfo)
         }
     }
+
     const handleSubmit = (e) => {
         if (newUser && user.first && user.last && user.email && user.password) {
-            firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-                .then((res) => {
-                    const newUser = { ...user };
-                    newUser.success = true;
-                    newUser.error = '';
-                    setUser(newUser)
-                    console.log(newUser)
-                })
-                .catch((error) => {
-                    var errorMessage = error.message;
-                    const newUser = { ...user }
-                    newUser.error = errorMessage;
-                    setUser(newUser)
-                });
+            const newLoginUserManual = { ...user };
+            newLoginUserManual.success = true;
+            newLoginUserManual.error = '';
+            setUser(newLoginUserManual)
+            fetch('https://frozen-retreat-55750.herokuapp.com/userLogin', {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify(newLoginUserManual)
+            })
         }
-
-        if (!newUser && user.email && user.password) {
-            firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-                .then((res) => {
-                    const newUser = {...user};
-                    newUser.success = true;
-                    newUser.name = res.user.displayName;
-                    setUser(newUser)
-                    sessionStorage.setItem('userCreate', JSON.stringify(user))
-                    history.replace(from)
-                })
-                .catch((error) => {
-                    var errorMessage = error.message;
-                    console.log(errorMessage);
-                });
+        const actualUser = manualUser.filter(actualPerson => actualPerson.email === user.email && actualPerson.password === user.password);
+        if (!newUser && actualUser[0].email && actualUser[0].password) {
+            if (actualUser) {
+                localStorage.setItem('createNewUser', JSON.stringify(actualUser))
+                history.replace(from);
+            }
+        }
+        else if(!actualUser){
+            alert("Sorry! Your email or password doesn't match our Database")
         }
 
         e.preventDefault()
+        e.target.reset();
 
     }
     const googleSignIn = () => {
@@ -116,7 +113,7 @@ const Login = () => {
                 var errorMessage = error.message;
                 console.log(errorMessage);
             });
-    } 
+    }
     return (
         <div className="container text-center mt-4 w-100">
             <img style={{ width: '160px' }} src={logo} alt="" />
@@ -186,8 +183,8 @@ const Login = () => {
                                     <div className='login-qstn'>
                                         <span>Don't have an account?</span>
                                         <span className='pl-1'>
-                                            <span style={{cursor: 'pointer', color: 'orange', fontSize: '16px'}} onClick={() => setNewUser(!newUser)}>
-                                            Create an account
+                                            <span style={{ cursor: 'pointer', color: 'orange', fontSize: '16px' }} onClick={() => setNewUser(!newUser)}>
+                                                Create an account
                                             </span>
                                         </span>
                                     </div>
@@ -198,7 +195,7 @@ const Login = () => {
                                     <div>
                                         <span>Already have an account?</span>
                                         <span className='pl-1'>
-                                            <span style={{color: 'orange', cursor: 'pointer', fontSize: '20px'}} onClick={() => setNewUser(!newUser)}>
+                                            <span style={{ color: 'orange', cursor: 'pointer', fontSize: '20px' }} onClick={() => setNewUser(!newUser)}>
                                                 Login
                                             </span>
                                         </span>
@@ -214,12 +211,12 @@ const Login = () => {
                         <img
                             className='media-icon'
                             src={googleIcon}
-                            
+
                             alt='google icon'
                         />
                     Continue with Google
                     </div>
-                    <div className='sign-btn col-12 col-sm-9'  onClick={fbLogIn}>
+                    <div className='sign-btn col-12 col-sm-9' onClick={fbLogIn}>
                         <img className='media-icon' src={facebookIcon} alt='facebook icon' />
                     Continue with Facebook
                     </div>

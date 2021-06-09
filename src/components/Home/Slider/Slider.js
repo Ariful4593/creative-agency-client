@@ -1,6 +1,8 @@
 import React from 'react';
 import Carousel from "react-elastic-carousel";
 import Item from './Item';
+import nitAdminPanel from '../../../images/nit-admin-panel.PNG';
+import bootShoes from '../../../images/boot-shoes.PNG';
 import redonion from '../../../images/redonion.PNG';
 import travelguru from '../../../images/travelguru.PNG';
 import volunteer from '../../../images/volunteer.PNG';
@@ -14,12 +16,14 @@ const breakPoints = [
     { width: 1200, itemsToShow: 4 },
 ];
 const itemData = [
-    { id: 1, img: redonion, webLink: 'http://red-onion-foodss.firebaseapp.com/', },
-    { id: 2, img: doctorportal, webLink: 'https://doctor-portalss.firebaseapp.com/', },
-    { id: 3, img: travelguru, webLink: 'https://travel-guru-web.firebaseapp.com/', },
-    { id: 4, img: volunteer, webLink: 'https://volunteer-networkss.firebaseapp.com/', },
-    { id: 5, img: proariful, webLink: 'https://pro-ariful.firebaseapp.com/', },
-    { id: 6, img: buddy, webLink: 'https://social-buddy-app-react.netlify.app/', },
+    { id: 1, img: nitAdminPanel, webLink: 'https://nit-adminpanel.firebaseapp.com/', },
+    { id: 2, img: bootShoes, webLink: 'https://boot-shoes.firebaseapp.com/', },
+    { id: 3, img: redonion, webLink: 'http://red-onion-foodss.firebaseapp.com/', },
+    { id: 4, img: doctorportal, webLink: 'https://doctor-portalss.firebaseapp.com/', },
+    { id: 5, img: travelguru, webLink: 'https://travel-guru-web.firebaseapp.com/', },
+    { id: 6, img: volunteer, webLink: 'https://volunteer-networkss.firebaseapp.com/', },
+    { id: 7, img: proariful, webLink: 'https://pro-ariful.firebaseapp.com/', },
+    { id: 8, img: buddy, webLink: 'https://social-buddy-app-react.netlify.app/', },
 ]
 const Slider = () => {
     return (
@@ -34,28 +38,6 @@ const Slider = () => {
 
                         </Item>)
                     }
-
-                    {/* <Item>
-                        <img className="w-100" src={travelguru} alt="" />
-                    </Item>
-                    <Item>
-                        <img className="w-100" src={volunteer} alt="" />
-                    </Item>
-                    <Item>
-                        <img className="w-100" src={proariful} alt="" />
-                    </Item>
-                    <Item>
-                        <img className="w-100" src={buddy} alt="" />
-                    </Item>
-                    <Item>
-                        <img className="w-100" src={creative} alt="" />
-                    </Item>
-                    <Item>
-                        <img className="w-100" src={doctorportal} alt="" />
-                    </Item>
-                    <Item>
-                        <img className="w-100" src={carouselEight} alt="" />
-                    </Item> */}
                 </Carousel>
             </div>
         </div>

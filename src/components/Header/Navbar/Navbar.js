@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../.../../../../images/logos/logo.png'
-import { UserContext } from '../../../App';
 import './Navbar.css'
 const Navbar = () => {
-    const [login, setLogin] = useState(JSON.parse(sessionStorage.getItem('googleUser')));
-    const [loggedInUser] = useContext(UserContext);
+    const [googleUser, setGoogleUser] = useState(JSON.parse(sessionStorage.getItem('googleUser')));
+    const [manualUser, setManualUser] = useState('')
 
+    useEffect(() => {
+        setManualUser(JSON.parse(localStorage.getItem('createNewUser')));
+    }, [])
     const handleSignOut = () => {
-        setLogin(sessionStorage.setItem('googleUser', false))
+        setGoogleUser(sessionStorage.setItem('googleUser', false));
+        setManualUser(localStorage.setItem('createNewUser', false));
     }
     const linkItem = [
         { id: 1, type: '/', title: 'Home' },
@@ -17,7 +19,6 @@ const Navbar = () => {
         { id: 3, type: 'team', title: 'Our Team' },
         { id: 4, type: 'contact', title: 'Contact Us' },
     ]
-    
     return (
 
         <nav className="navbar navbar-expand-lg navbar-light myNav sticky" id="navbarSticky" >
@@ -40,11 +41,11 @@ const Navbar = () => {
                         })
                     }
                     {
-                        login ?
+                        googleUser || manualUser ?
                             <div className="p-0 nav-item btn ">
                                 <div className="dropdown show">
                                     <a className="dropdown-toggle login-btn" href="https://creative-agencys.firebaseapp.com/" style={{ borderRadius: '7px' }} role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {loggedInUser.name || login.name}
+                                        {googleUser ? googleUser.name : (manualUser ? manualUser[0].name : '')}
                                     </a>
                                     <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                         <Link className="dropdown-item" to="dashboard">Dashboard</Link>

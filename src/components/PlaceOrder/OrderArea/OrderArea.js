@@ -33,7 +33,7 @@ const OrderArea = () => {
             setCurrentMenu(current);
 
         }
-    }, [currentCategory])
+    }, [currentCategory, orderData, serviceId.id])
     return (
         <div className="" style={{ backgroundColor: '#FFFFFF',marginLeft: '20px', marginRight: '20px' }}>
             <div className="row p-2">

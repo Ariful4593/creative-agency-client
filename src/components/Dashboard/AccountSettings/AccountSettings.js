@@ -46,43 +46,44 @@ const AccountSettings = ({ currentBar, currentCategory }) => {
             {
                 currentCategory === 'billing' && currentBar.map(item => {
                     return (
-                        <div className="row w-100" key={item.id}>
-                            <div className="col-md-4">
-                                <h4>{item.profile}</h4>
-                            </div>
-                            <div className="col-md-8">
-                                <div className="row border p-2">
-                                    <div className="col-md-8 p-2">
-                                        <p className="m-0">{item.description}</p>
-                                    </div>
-                                    <div className="col-md-4 text-right">
-                                        <button type="submit" className="btn btn-danger">Add credit card</button>
-                                    </div>
+                        <div className="container" key={item.id}>
+                            <div className="row w-100" >
+                                <div className="col-md-4">
+                                    <h4>{item.profile}</h4>
                                 </div>
-                                <br />
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <h6>Current Usage</h6>
+                                <div className="col-md-8">
+                                    <div className="row border p-2">
+                                        <div className="col-md-8 p-2">
+                                            <p className="m-0">{item.description}</p>
+                                        </div>
+                                        <div className="col-md-4 text-right">
+                                            <button type="submit" className="btn btn-danger">Add credit card</button>
+                                        </div>
                                     </div>
-                                    <div className="col-md-6">
-                                        <h6>Not Available	</h6>
+                                    <br />
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <h6>Current Usage</h6>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <h6>Not Available	</h6>
+                                        </div>
                                     </div>
+                                    <hr />
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <h6>Platforms Credit</h6>
+                                        </div>
+                                        <div className="col-md-6">
+                                            <h6>$0.00</h6>
+                                        </div>
+                                    </div>
+                                    <hr />
                                 </div>
-                                <hr />
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <h6>Platforms Credit</h6>
-                                    </div>
-                                    <div className="col-md-6">
-                                        <h6>$0.00</h6>
-                                    </div>
-                                </div>
-                                <hr />
-                            </div>
 
-                            <hr />
+                                <hr />
+                            </div>
                         </div>
-
                     )
                 })
             }

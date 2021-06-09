@@ -22,11 +22,6 @@ const Account = () => {
             setCurrentBar(category)
         }
     }, [currentCategory]);
-
-
-
-    console.log(currentBar)
-
     return (
         <div className="containter">
             <Navbar></Navbar>

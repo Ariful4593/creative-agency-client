@@ -4,7 +4,7 @@ const LeftSide = ({ orderData }) => {
     return (
         <div className="row w-100">
             {
-                orderData.map(item => {
+               orderData? orderData.map(item => {
                     return (
                         <div className="card col-12 col-sm-6 col-md-6 col-lg-8 col-xl-4 border-0 mt-4" key={item._id}>
                             <div className="card-body border">
@@ -23,7 +23,7 @@ const LeftSide = ({ orderData }) => {
                             </div>
                         </div>
                     )
-                })
+                }) : <p>You don't have anything order yet!</p>
             }
 
         </div>
